@@ -1,0 +1,16 @@
+py>=1.5.0
+six>=1.10.0
+setuptools
+attrs>=17.4.0
+more-itertools>=4.0.0
+atomicwrites>=1.0
+pluggy>=0.7
+
+[:python_version<"3.0"]
+funcsigs
+
+[:python_version<"3.6"]
+pathlib2>=2.2.0
+
+[:sys_platform=="win32"]
+colorama

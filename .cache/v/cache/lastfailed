@@ -1,0 +1,5 @@
+{
+  "test_helpers.py": true,
+  "test_helpers.py::test_foo": true,
+  "tests/test_helpers.py": true
+}

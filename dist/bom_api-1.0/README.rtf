@@ -1,0 +1,73 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 bom_api v 1.0\
+Creates and launches an application that can be used to modify and query a bill of materials\
+\
+To install:\
+Navigate to the package folder (containing setup.py)\
+from the command line run the following to create and enter a virtual environment:\
+    python3 -m venv env\
+    source env/bin/activate\
+Install the package using this virtual environment:\
+    python setup.py install\
+to run tests:\
+    python setup.py test\
+In order to run the application, use the following command:\
+    python application/api.py\
+\
+Open a new terminal window and run the following commands to explore:\
+\
+To see a list of all parts:\
+curl -i http://localhost:5000/parts\
+\
+To create a new part with the name "packaged red metal pen":\
+curl -i -H "Content-Type: application/json" -X POST -d '\{"name": "packaged red metal pen"\}' http://localhost:5000/parts\
+\
+To attach children to this new part:\
+curl -i -H "Content-Type: application/json" -X PUT -d '\{"action": "attach", "children": [14, 16, 17], "attribute values": [[], [], []]\}' http://localhost:5000/parts/18\
+\
+To see the top-level children of assembly:\
+curl -i http://localhost:5000/parts/18/top-children\
+\
+To see all of the children this assembly has:\
+curl -i http://localhost:5000/parts/18/all-children\
+\
+To see all assemblies:\
+curl -i http://localhost:5000/assemblies\
+\
+To see all component parts:\
+curl -i http://localhost:5000/components\
+\
+To see all top-level assemblies:\
+curl -i http://localhost:5000/subassemblies\
+\
+To see all subassemblies:\
+curl -i http://localhost:5000/top-assemblies\
+\
+To see all orphans (shouldn't be any at this point):\
+curl -i http://localhost:5000/orphans\
+\
+To see all assemblies that have the red ink cartridge (id = 5) in them:\
+curl -i http://localhost:5000/parts/5/ancestors\
+\
+Remove the red ink cartridge from the red plastic pen (id = 12):\
+curl -i -H "Content-Type: application/json" -X PUT -d '\{"action": "remove", "children": [5]\}' http://localhost:5000/parts/12\
+\
+Examine the red plastic pen (12), see that it no longer contains a red ink cartridge (5)\
+curl -i http://localhost:5000/parts/12\
+\
+Delete the red ink cartridge:\
+curl -i -H "Content-Type: application/json" -X DELETE http://localhost:5000/parts/5\
+\
+Examine the red metal pen (14), see that it no longer contains a red ink cartridge (5)\
+curl -i http://localhost:5000/parts/14\
+\
+Look for the red ink cartridge (5), but it will return a 404 error\
+curl -i http://localhost:5000/parts/5\
+\
+When finished, stop the server and use the command \'93deactivate\'94 to exit the virtual environment}
